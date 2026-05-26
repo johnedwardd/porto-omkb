@@ -14,8 +14,7 @@
     --white: #ffffff;
     --glass: rgba(255,255,255,0.06);
     --glass-border: rgba(255,255,255,0.12);
-    }
-
+  }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -30,15 +29,15 @@
 
   /* ── GRADIENT MESH BG ── */
   .mesh {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  background:
-    radial-gradient(ellipse 70% 60% at 20% 30%, rgba(60,60,60,0.9) 0%, transparent 70%),
-    radial-gradient(ellipse 60% 70% at 80% 70%, rgba(30,30,30,0.8) 0%, transparent 65%),
-    linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);
-  pointer-events: none;
-}
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 20% 30%, rgba(60,60,60,0.9) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 70% at 80% 70%, rgba(30,30,30,0.8) 0%, transparent 65%),
+      linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);
+    pointer-events: none;
+  }
 
   .noise {
     position: fixed;
@@ -162,7 +161,7 @@
 
   .hero-title {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(6rem, 18vw, 18rem);
+    font-size: clamp(4rem, 15vw, 18rem); /* Adjusted minimum size */
     line-height: 0.88;
     letter-spacing: -0.01em;
     color: white;
@@ -289,9 +288,22 @@
     text-transform: uppercase;
   }
 
+  /* Consolidated Inline Styles for Cleaner Code */
   .photo-icon {
     font-size: 4rem;
     opacity: 0.3;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+    width: 100%;
+    height: 100%;
+  }
+  
+  .photo-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s;
   }
 
   .about-tag-float {
@@ -468,19 +480,49 @@
     margin: 1rem 0 0;
   }
 
+  /* ── PHOTO ── */
+  #photo {
+    padding: 8rem 5vw;
+  }
+  
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .photo-card {
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+    aspect-ratio: 4/3;
+  }
+
+  .photo-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s;
+  }
+
+  .photo-card:hover img {
+    transform: scale(1.05);
+  }
+
   /* ── DESIGN ── */
   #design {
     padding: 8rem 5vw;
   }
 
   .design-showcase {
-  background: rgba(0,0,0,0.3);
-  border: 1px solid var(--glass-border);
-  border-radius: 24px;
-  padding: 3rem;
-  backdrop-filter: blur(10px);
-  display: block; 
-}
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 3rem;
+    backdrop-filter: blur(10px);
+    display: block; 
+  }
+  
   .design-info h3 {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 2rem;
@@ -514,26 +556,26 @@
   }
 
   .design-mockup {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  height: auto;
-  width: 100%; 
-}
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    height: auto;
+    width: 100%; 
+  }
 
-.mockup-card {
-  border-radius: 0;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.15);
-  aspect-ratio: 2/3;
-  width: 100%; 
-}
+  .mockup-card {
+    border-radius: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.15);
+    aspect-ratio: 2/3;
+    width: 100%; 
+  }
 
-.mockup-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+  .mockup-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 
   .mockup-card::after {
     content: '';
@@ -607,16 +649,33 @@
   .reveal-delay-3 { transition-delay: 0.3s; }
   .reveal-delay-4 { transition-delay: 0.4s; }
 
-  /* ── RESPONSIVE ── */
+  /* ── RESPONSIVE FIXES ── */
   @media (max-width: 768px) {
+    /* Header/Hero */
+    nav { flex-direction: column; gap: 1rem; text-align: center; }
+    .nav-links { gap: 1rem; flex-wrap: wrap; justify-content: center; }
+    .hero-subtitle { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+
+    /* Layout Grids */
+    #about, #experience, #photo, #design { padding: 5rem 5vw; }
     #about { grid-template-columns: 1fr; gap: 3rem; }
+    .about-photo-wrap { display: flex; justify-content: center; }
+    
+    /* Ensuring sections stack correctly instead of squishing */
+    .skills-grid { grid-template-columns: 1fr; }
     .exp-grid { grid-template-columns: 1fr; }
-    .design-showcase { grid-template-columns: 1fr; }
-    .design-mockup { height: 200px; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr; }
-    footer { flex-direction: column; gap: 2rem; align-items: flex-start; }
-    .footer-right { text-align: left; }
-    nav { flex-wrap: wrap; gap: 1rem; }
-    .nav-links { gap: 1.5rem; }
+    .photo-grid { grid-template-columns: 1fr; } 
+    
+    /* Design Section Fix */
+    .design-showcase { padding: 1.5rem; }
+    .design-mockup { 
+      grid-template-columns: 1fr; /* Stack images on mobile */
+      grid-template-rows: auto; 
+    }
+    
+    /* Footer */
+    footer { flex-direction: column; gap: 2rem; align-items: center; text-align: center; }
+    .footer-right { text-align: center; }
   }
 </style>
 </head>
@@ -661,22 +720,8 @@
     <div class="about-photo-frame">
       <div class="photo-placeholder">
         <div class="photo-icon">
-            <style>
-                .photo-icon{
-                    border-radius: 20px;
-                    overflow: hidden;
-                    border: 1px solid var(--glass-border);
-                }
-                .photo-icon img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    transition: transform 0.4s;
-                }
-            </style>
-            <img src="fotoku.jpeg">
+            <img src="fotoku.jpeg" alt="John Edward">
         </div>
-    
       </div>
     </div>
     <div class="about-tag-float">Designer<br>& Illustrator</div>
@@ -736,33 +781,7 @@
 </section>
 
 <!-- PHOTO -->
-
 <section id="photo">
-    <style>
-        .photo-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 1.5rem;
-        }
-
-        .photo-card {
-          border-radius: 20px;
-          overflow: hidden;
-          border: 1px solid var(--glass-border);
-          aspect-ratio: 4/3;
-        }
-
-        .photo-card img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          transition: transform 0.4s;
-        }
-
-        .photo-card:hover img {
-          transform: scale(1.05);
-        }
-    </style>
     <div class="sec-heading reveal">Photo</div>
     <div class="sec-line reveal reveal-delay-1"></div>
 
@@ -796,7 +815,8 @@
     <div class="mockup-card featured">
       <img src="poster3.jpg" style="width: 100%; height:100%; object-fit:cover;" alt="">
     </div>
-</div>
+    </div>
+    </div>
   </div>
 </section>
 
